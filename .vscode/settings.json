@@ -1,0 +1,16 @@
+{
+    "cmake.sourceDirectory": "/Users/ghaz/Documents/projects/MetricProducer/lib/metric_producer",
+    "cmake.ignoreCMakeListsMissing": true,
+    "files.associations": {
+        "*.html": "html",
+        "set": "cpp",
+        "forward_list": "cpp",
+        "istream": "cpp",
+        "map": "cpp",
+        "string": "cpp",
+        "tuple": "cpp",
+        "unordered_map": "cpp",
+        "valarray": "cpp",
+        "vector": "cpp"
+    }
+}
