@@ -70,8 +70,7 @@ RdKafka::Conf* MetricProducer::getConfig_() const
 	const std::string sasl_username = getEnvironmentVariable_("SASL_PLAIN_USERNAME");
 	conf->set("sasl.username", sasl_username, errstr);
 
-    // TODO: Fix typo in env
-	const std::string sasl_password = getEnvironmentVariable_("SASL_PLAN_PASSWORD");
+	const std::string sasl_password = getEnvironmentVariable_("SASL_PLAIN_PASSWORD");
 	conf->set("sasl.password", sasl_password, errstr);
 
 	return conf;
@@ -92,8 +91,7 @@ RdKafka::Producer* MetricProducer::getProducer_(const RdKafka::Conf* conf) const
 
 RdKafka::Topic* MetricProducer::getTopic_() const
 {
-    // TODO: Change environment variable name
-	const std::string topicName = getEnvironmentVariable_("METRIC_TOPIC");
+	const std::string topicName = getEnvironmentVariable_("TOPIC_NAME");
 	std::string errstr;
 	RdKafka::Topic* topic = RdKafka::Topic::create(_producer, topicName, nullptr, errstr);
 
