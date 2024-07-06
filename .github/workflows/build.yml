@@ -56,12 +56,8 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Library to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Artifact Shared
+        uses: actions/upload-artifact@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./libMetricProducer.${{ matrix.suffix }}
-          asset_name: libMetricProducer.${{ matrix.suffix }}
-          asset_content_type: application/octet-stream
+          name: library-${{ matrix.os }}-${{ matrix.suffix }}
+          path: ./libMetricProducer.${{ matrix.suffix }}
