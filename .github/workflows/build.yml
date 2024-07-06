@@ -34,10 +34,34 @@ jobs:
             brew install librdkafka
           fi
 
-      - name: Create Build Environment
-        run: cmake -E make_directory ${{runner.workspace}}/build
-
       - name: Build
-        working-directory: ${{runner.workspace}}/build
-        shell: bash
-        run: cmake --build . --config Release
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make
+
+      - name: Prepare for release
+        run: |
+          cp build/libMetricProducer.${{ matrix.suffix }} libMetricProducer.${{ matrix.suffix }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Library to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./libMetricProducer.${{ matrix.suffix }}
+          asset_name: libMetricProducer.${{ matrix.suffix }}
+          asset_content_type: application/octet-stream
