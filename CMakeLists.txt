@@ -11,7 +11,13 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(rdkafka REQUIRED IMPORTED_TARGET rdkafka)
 pkg_check_modules(rdkafka++ REQUIRED IMPORTED_TARGET rdkafka++)
 
-add_library(MetricProducer src/metric_producer.cpp)
+add_library(MetricProducerExecutable src/metric_producer.cpp)
+
+target_link_libraries(MetricProducerExecutable PUBLIC PkgConfig::rdkafka)
+target_link_libraries(MetricProducerExecutable PUBLIC PkgConfig::rdkafka++)
+
+
+add_library(MetricProducer SHARED src/metric_producer.cpp)
 
 target_link_libraries(MetricProducer PUBLIC PkgConfig::rdkafka)
 target_link_libraries(MetricProducer PUBLIC PkgConfig::rdkafka++)

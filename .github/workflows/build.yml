@@ -1,0 +1,43 @@
+name: CMake Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 480
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            suffix: so
+          - os: macos-latest
+            suffix: dylib
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          if [[ "${{ runner.os }}" == "Linux" ]]; then
+            sudo apt-get update
+            sudo apt-get install pkg-config
+            sudo apt-get install librdkafka-dev
+          elif [[ "${{ runner.os }}" == "macOS" ]]; then
+            brew install pkg-config
+            brew install librdkafka
+          fi
+
+      - name: Create Build Environment
+        run: cmake -E make_directory ${{runner.workspace}}/build
+
+      - name: Build
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: cmake --build . --config Release
