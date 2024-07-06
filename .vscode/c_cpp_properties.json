@@ -4,8 +4,8 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/lib/include/**`",
-                "${workspaceFolder}/lib/src/**`",
+                "${workspaceFolder}/include/**`",
+                "${workspaceFolder}/lib/**`",
                 "/opt/homebrew/include/"
             ],
             "defines": [],

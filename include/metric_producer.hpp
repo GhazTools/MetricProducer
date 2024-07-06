@@ -6,7 +6,7 @@
 // THIRD PARTY IMPORTS START HERE
 #include <librdkafka/rdkafkacpp.h>
 
-#include "../../json.hpp"
+#include "json.hpp"
 // THIRD PARTY IMPORTS END HERE
 
 class MetricProducer
@@ -14,6 +14,8 @@ class MetricProducer
 public:
 	MetricProducer();
 	~MetricProducer();
+
+	bool produce(const std::string& application_name, const std::string& metric_name) const;
 
 private:
 	RdKafka::Producer* _producer;
