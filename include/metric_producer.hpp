@@ -22,7 +22,7 @@ private:
 	RdKafka::Topic* _topic;
 
 	RdKafka::Conf* getConfig_() const;
-	RdKafka::Producer* getProducer_(const RdKafka::Conf* conf) const;
+	RdKafka::Producer* getProducer_(RdKafka::Conf* conf) const;
 	RdKafka::Topic* getTopic_() const;
 
 	std::string getEnvironmentVariable_(const char* name) const;

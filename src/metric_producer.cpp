@@ -4,7 +4,7 @@
 
 MetricProducer::MetricProducer()
 {
-	const RdKafka::Conf* conf = getConfig_();
+	RdKafka::Conf* conf = getConfig_();
 
 	_producer = getProducer_(conf);
 	_topic = getTopic_();
@@ -76,7 +76,7 @@ RdKafka::Conf* MetricProducer::getConfig_() const
 	return conf;
 }
 
-RdKafka::Producer* MetricProducer::getProducer_(const RdKafka::Conf* conf) const
+RdKafka::Producer* MetricProducer::getProducer_(RdKafka::Conf* conf) const
 {
 	std::string errstr;
 	RdKafka::Producer* producer = RdKafka::Producer::create(conf, errstr);
